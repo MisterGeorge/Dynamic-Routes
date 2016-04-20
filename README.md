@@ -25,7 +25,7 @@ define('BASEPATH', str_replace('\\', '/', 'system'));
 define('APPPATH',  realpath('app') );
 ```
 #Examples
-##Remember! that you change the comment after a route only ejectua the following in console
+##Remember! that you change the comment after a route only run the following in console
 ```sh
   php generate-routes.php
 ```
