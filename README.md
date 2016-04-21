@@ -18,7 +18,7 @@ if(file_exists($file_path)){
 }
 ```
 
-+ Add new file on FCPATH (home path codeigniter) . **generate-routes.php
++ Add the file on FCPATH (home path codeigniter) /  **generate-routes.php
 + Define var on **generate-routes.php (not necesary)
 ```php
 define('BASEPATH', str_replace('\\', '/', 'system'));
@@ -82,10 +82,10 @@ class Example3 extends CI_Controller
   }
   
  /**
- * @route::hi-moon
+ * @route::any-values/(:any)
  */
   function any( $a ){
-    //url: /arguments/any/$1
+    //url: /arguments/any-values/$1
   }
   
   /**
