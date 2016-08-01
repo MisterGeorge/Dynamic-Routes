@@ -18,16 +18,16 @@ if(file_exists($file_path)){
 }
 ```
 
-+ Add the file on FCPATH (home path codeigniter) /  **generate-routes.php
-+ Define var on **generate-routes.php (not necesary)
++ Add the file on FCPATH (home path codeigniter) /  **routes
++ Define var on **routes (not necesary)
 ```php
 define('BASEPATH', str_replace('\\', '/', 'system'));
-define('APPPATH',  realpath('app') );
+define('APPPATH',  realpath('application') );
 ```
 #Examples
 ##Remember! that you change the comment after a route only run the following in console
 ```sh
-  php generate-routes.php
+  php routes
 ```
 
 ### route controller + function
