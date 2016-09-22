@@ -96,3 +96,25 @@ class Example3 extends CI_Controller
   }
 }
 ```
+### Include method get, post, put, delete
+```php
+/**
+ * @route::example4
+ */
+class Example4 extends CI_Controller
+{
+  /**
+  * @route::{post}data_post
+  */
+  function data_post(){
+    //url: example4/data_post/  method = post
+  }
+  
+ /**
+  * @route::{get}my_data_get
+  */
+  function my_data_get(){
+    //url: /example4/my_data_get/ method = get
+  }
+}
+```
