@@ -1,0 +1,17 @@
+#!/usr/bin/env php
+<?php
+/**
+* 
+*/
+include_once 'app/libraries/DynamicRoutes.php';
+
+$DynamicRoutes = new DynamicRoutes([
+	'BASEPATH' => realpath('system'), //required from console
+	'APPPATH' => realpath('application'), //required from console
+	'type_file' => 'json' //can be php or json
+]);
+
+$DynamicRoutes->extendsFile( BASEPATH . '/core/Controller.php')
+		->extendsFile( APPPATH . '/core/APP_Controller.php');
+
+$DynamicRoutes->compile(true);
