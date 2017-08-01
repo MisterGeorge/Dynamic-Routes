@@ -1,45 +1,37 @@
-# routes-ci
-Generate routes to Codeigniter framework
+# dynamic-routes-ci
+Generate Dynamic Routes to Codeigniter framework
 
 #Install
-+ create file config/routes-generator.php
-+ add next code on file config/routes.php
++ Download DynamicRoutes.php into libraries/
++ Download dynamicRoutes (sh) into path framework
++ Edit file config/routes.php
 
 ```php
-$file_path = APPPATH . 'config/routes-generator.php';
-
-if(file_exists($file_path)){
-	
-	$include_route = include $file_path;
-	if (isset($include_route) && is_array($include_route))
-	{	
-		$route = array_merge( $route, $include_route);
-	}
-}
+include_once APPPATH .'/libraries/DynamicRoutes.php';
+$DynamicRoutes = new DynamicRoutes([
+	'type_file' => 'json'
+]);
+$route = array_merge( $route, $DynamicRoutes->current_routes );
 ```
 
-+ Add the file on FCPATH (home path codeigniter) /  **routes
-+ Define var on **routes (not necesary)
-```php
-define('BASEPATH', str_replace('\\', '/', 'system'));
-define('APPPATH',  realpath('application') );
-```
++ Config dynamicRoutes
+
 #Examples
 ##Remember! that you change the comment after a route only run the following in console
 ```sh
-  php routes
+  php dynamicRoutes
 ```
 
 ### route controller + function
 ```php
 /**
- * @route::example-route
+ * @route:example-route
  */
 class Example1 extends CI_Controller
 {
   /**
- * @route::product/(:num)
- * @route::product
+ * @route:product/(:num)
+ * @route:product
  */
   function product( $parm ){
     //url1: /example-route/product/1
@@ -53,14 +45,14 @@ class Example1 extends CI_Controller
 class Example2 extends CI_Controller
 {
   /**
- * @route::hello-world
+ * @route:hello-world
  */
   function hello_world(  ){
     //url: /hello-world
   }
   
  /**
- * @route::hi-moon
+ * @route:hi-moon
  */
   function hello_moon(  ){
     //url: /hi-moon
@@ -70,26 +62,26 @@ class Example2 extends CI_Controller
 ### arguments num and any
 ```php
 /**
- * @route::arguments
+ * @route:arguments
  */
 class Example3 extends CI_Controller
 {
   /**
- * @route::numeric-values/(:num)/(:num)
+ * @route:numeric-values/(:num)/(:num)
  */
   function numeric( $a , $b ){
     //url: /arguments/numeric-values/$1/$2
   }
   
  /**
- * @route::any-values/(:any)
+ * @route:any-values/(:any)
  */
   function any( $a ){
     //url: /arguments/any-values/$1
   }
   
   /**
- * @route::several/(:num)/(:num)/(:any)/(:any)
+ * @route:several/(:num)/(:num)/(:any)/(:any)
  */
   function several( $a, $b , $c, $d  ){
     //url: /arguments/several/$1/$2/$3/$4
@@ -99,19 +91,19 @@ class Example3 extends CI_Controller
 ### Include method get, post, put, delete
 ```php
 /**
- * @route::example4
+ * @route:example4
  */
 class Example4 extends CI_Controller
 {
   /**
-  * @route::{post}data_post
+  * @route:{post}data_post
   */
   function data_post(){
     //url: example4/data_post/  method = post
   }
   
  /**
-  * @route::{get}my_data_get
+  * @route:{get}my_data_get
   */
   function my_data_get(){
     //url: /example4/my_data_get/ method = get
