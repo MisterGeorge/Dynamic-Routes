@@ -21,11 +21,11 @@ class DynamicRoutes
 
 	/**
 	 * @param $config
-	 *		#BASEPATH 			: base path system
-	 *		#APPPATH 			: application path
-	 *		#routes_path 		: file json output
+	 *		#BASEPATH 		: base path system
+	 *		#APPPATH 		: application path
+	 *		#routes_path 		: file routes output
 	 * 		#controller_path 	: path controllers
-	 * 		#type_file 			: json|php
+	 * 		#type_file 		: json|php
 	 */
 	public function __construct(  $config = null )
 	{
@@ -44,7 +44,7 @@ class DynamicRoutes
 			define("APPPATH", $app_path );
 		}
 		
-		$this->routes_path     = ($route_path) ? $route_path : APPPATH . "/config/routes-generator.json";
+		$this->routes_path     = ($route_path) ? $route_path : APPPATH . "/config/routes-generator";
 		$this->controller_path = ($controller_path) ? $controller_path : APPPATH . "/controllers/";
 		
 		$this->current_routes = $this->get_current_routes();
