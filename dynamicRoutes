@@ -12,6 +12,6 @@ $DynamicRoutes = new DynamicRoutes([
 ]);
 
 $DynamicRoutes->extendsFile( BASEPATH . '/core/Controller.php')
-		->extendsFile( APPPATH . '/core/APP_Controller.php');
+		->extendsFile( APPPATH . '/core/MY_Controller.php'); //not required
 
 $DynamicRoutes->compile(true);
