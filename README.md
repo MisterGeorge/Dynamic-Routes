@@ -1,7 +1,7 @@
-# dynamic-routes-ci
-Generate Dynamic Routes to Codeigniter framework
+# dynamic-routes-ci 
+Generate Dynamic Routes to Codeigniter into Controllers
 
-#Install
+### Install
 + Download DynamicRoutes.php into libraries/
 + Download dynamicRoutes (sh) into path framework
 + Edit file config/routes.php
@@ -16,11 +16,12 @@ $route = array_merge( $route, $DynamicRoutes->current_routes );
 
 + Config dynamicRoutes
 
-#Examples
-##Remember! that you change the comment after a route only run the following in console
+
+## Remember! that you change the comment after a route only run the following in console
 ```sh
   php dynamicRoutes
 ```
+# Examples
 
 ### route controller + function
 ```php
