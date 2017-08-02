@@ -1,6 +1,11 @@
 # Dynamic Routes for CodeIgniter 3.*
 Generate Dynamic Routes to Codeigniter into Controllers
 
+### Requirements
++ php-5.* or php-7.*
++ FrameWork CodeIgniter 3.*
++ linux or sh command
+
 ### Install
 + Download DynamicRoutes.php into libraries/
 + Download dynamicRoutes (sh) into path framework
