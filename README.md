@@ -1,4 +1,4 @@
-# dynamic-routes-ci 
+# Dynamic Routes for CodeIgniter 3.*
 Generate Dynamic Routes to Codeigniter into Controllers
 
 ### Install
