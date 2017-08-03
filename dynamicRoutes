@@ -11,7 +11,17 @@ $DynamicRoutes = new DynamicRoutes([
 	'type_file' => 'json' //can be php or json
 ]);
 
-$DynamicRoutes->extendsFile( BASEPATH . '/core/Controller.php')
+$help = isset($_SERVER['argv'][1]) ? $_SERVER['argv'][1] : false;
+
+if(in_array($help, ["h","help"]))
+{
+	$DynamicRoutes->help();
+}
+else
+{
+	$DynamicRoutes->extendsFile( BASEPATH . '/core/Controller.php')
 		->extendsFile( APPPATH . '/core/MY_Controller.php'); //not required
 
-$DynamicRoutes->compile(true);
+	$DynamicRoutes->compile(true);
+
+}
