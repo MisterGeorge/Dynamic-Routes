@@ -80,6 +80,18 @@ class DynamicRoutes
 
 		return $currentRoutes;
 	}
+	
+	/**
+	 * 
+	 */
+	public function help()
+	{
+		echo "\nUse comments in a controller:\n\n";
+		echo "\t\tDefault route \t\t\t\t @route:NAMEROUTE\n";
+		echo "\t\tParam num \t\t\t\t @route:NAMEROUTE/(:num)\n";
+		echo "\t\tParam any \t\t\t\t @route:NAMEROUTE/(:any)\n";
+		echo "\t\tNo route (Class required route) \t @route:__avoid__\n\n";
+	}
 
 	public function extendsFile( $fileName = "")
 	{
