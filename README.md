@@ -14,7 +14,7 @@ Generate Dynamic Routes to Codeigniter into Controllers
 ```php
 include_once APPPATH .'/libraries/DynamicRoutes.php';
 $DynamicRoutes = new DynamicRoutes([
-	'type_file' => 'json'
+	'format' => 'json'
 ]);
 $route = array_merge( $route, $DynamicRoutes->current_routes );
 ```
