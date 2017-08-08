@@ -13,7 +13,7 @@ class DynamicRoutes
 	
 	private $controller_path;
 
-	private $type_file;
+	private $format;
 
 	public $current_routes;
 
@@ -21,26 +21,36 @@ class DynamicRoutes
 
 	/**
 	 * @param $config
-	 *		#BASEPATH 		: base path system
-	 *		#APPPATH 		: application path
-	 *		#routes_path 		: file routes output
+	 *		#BASEPATH 		: path base system
+	 *		#APPPATH 		: path application
+	 *		#routes_path 		: path file output
 	 * 		#controller_path 	: path controllers
-	 * 		#type_file 		: json|php
+	 * 		#format			: json|php
+	 *      	#disable_default_routes : boolean
 	 */
 	public function __construct(  $config = null )
 	{
-		$base_path       = isset($config['BASEPATH']) ? $config['BASEPATH'] : '';
-		$app_path        = isset($config['APPPATH']) ? $config['APPPATH'] : ''; 
-		$route_path      = isset($config['routes_path']) ? $config['routes_path'] : ''; 
-		$controller_path = isset($config['controller_path']) ? $config['controller_path'] : ''; 
-		$this->type_file = isset($config['type_file']) ? $config['type_file'] : 'json'; 
+		$base_path              = isset($config['BASEPATH']) ? $config['BASEPATH'] : '';
+		$app_path               = isset($config['APPPATH']) ? $config['APPPATH'] : ''; 
+		$route_path             = isset($config['routes_path']) ? $config['routes_path'] : ''; 
+		$controller_path        = isset($config['controller_path']) ? $config['controller_path'] : ''; 
+		$disable_default_routes = isset($config['disable_default_routes']) ? $config['disable_default_routes'] : false; 
+		$this->format           = isset($config['format']) ? $config['format'] : 'json'; 
 
 		if(!defined("BASEPATH"))
 		{
+			if( !file_exists( $base_path ) )
+			{
+				$this->_error("BASEPATH not found [".$base_path."]");
+			}
 			define("BASEPATH", $base_path);
 		}
 		if(!defined("APPPATH"))
 		{
+			if( !file_exists( $app_path ) )
+			{
+				$this->_error("APPPATH not found [".$app_path."]");
+			}
 			define("APPPATH", $app_path );
 		}
 		
@@ -48,23 +58,41 @@ class DynamicRoutes
 		$this->controller_path = ($controller_path) ? $controller_path : APPPATH . "/controllers/";
 		
 		$this->current_routes = $this->get_current_routes();
+
+		if($disable_default_routes)
+		{	
+			$this->current_routes['(.*)'] = "none";
+			$this->current_routes['(:any)'] = "none";
+		}
+	}
+
+	/**
+	 * 
+	 */
+	public function help()
+	{
+		echo "\nUse comments in a controller:\n\n";
+		echo "\t\tDefault route \t\t\t\t @route:NAMEROUTE\n";
+		echo "\t\tParam num \t\t\t\t @route:NAMEROUTE/(:num)\n";
+		echo "\t\tParam any \t\t\t\t @route:NAMEROUTE/(:any)\n";
+		echo "\t\tNo route (Class required route) \t @route:__avoid__\n\n";
 	}
 
 	public function get_current_routes()
 	{
 		if( file_exists( $this->routes_path ) )
 		{	
-			if($this->type_file==='json')
+			if($this->format==='json')
 			{
 				$currentRoutes =  @json_decode( file_get_contents($this->routes_path),true);
 			}
-			else if($this->type_file==='php')
+			else if($this->format==='php')
 			{
 				$currentRoutes = include $this->routes_path;
 			}
 			else
 			{
-				$this->_error("Type not found [".$this->type_file."] use: [php or json]");
+				$this->_error("Type not found [".$this->format."] use: [php or json]");
 			}
 
 			if(  !is_array($currentRoutes) )
@@ -79,18 +107,6 @@ class DynamicRoutes
 		}
 
 		return $currentRoutes;
-	}
-	
-	/**
-	 * 
-	 */
-	public function help()
-	{
-		echo "\nUse comments in a controller:\n\n";
-		echo "\t\tDefault route \t\t\t\t @route:NAMEROUTE\n";
-		echo "\t\tParam num \t\t\t\t @route:NAMEROUTE/(:num)\n";
-		echo "\t\tParam any \t\t\t\t @route:NAMEROUTE/(:any)\n";
-		echo "\t\tNo route (Class required route) \t @route:__avoid__\n\n";
 	}
 
 	public function extendsFile( $fileName = "")
@@ -187,11 +203,11 @@ class DynamicRoutes
 
 	private function _saveRoutes( $routes )
 	{
-		if($this->type_file === 'json')
+		if($this->format === 'json')
 		{
 			$routesStr = json_encode($routes);
 		}
-		else if($this->type_file === 'php' )
+		else if($this->format === 'php' )
 		{
 			$replace_content = print_r($routes, 1 ).";";
 			$replace_content = str_replace("[",'"',$replace_content);
